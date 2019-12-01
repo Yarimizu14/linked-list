@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 struct node {
     int val;
@@ -30,6 +31,33 @@ void insert(struct linkedlist *l, int n) {
     *last->next = nd;
 };
 
+struct node *get(struct linkedlist *l, int target) {
+    assert(target > 0);
+    if (!l) {
+        printf("linked-list is empty");
+        return NULL;
+    }
+    struct node *root = l->first;
+    if (target == 1) {
+        return root;
+    }
+    if (!root) {
+        return NULL;
+    }
+    struct node *ret = NULL;
+    struct node *current = root;
+    int idx = 1;
+    while (idx < target - 1) {
+        current = current->next;
+        idx++;
+        if (idx == target) {
+            ret = current;
+            break;
+        }
+    }
+    return ret;
+}
+
 int main() {
     printf("hello world\n");
     struct linkedlist l = {};
@@ -46,5 +74,12 @@ int main() {
         printf("val is %d\n", current->val);
         struct node *nn = current->next;
         current = nn;
+    }
+
+    struct node *target = get(&l, 1);
+    if (!target) {
+        printf("target is NULL");
+    } else {
+        printf("get node at index %d -> %d", 2, target->val);
     }
 }
