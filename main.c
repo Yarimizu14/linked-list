@@ -58,6 +58,17 @@ struct node *get(struct linkedlist *l, int target) {
     return ret;
 }
 
+int size(struct linkedlist *l) {
+    assert(l != NULL);
+    int count = 0;
+    struct node *current = l->first;
+    while(current != NULL) {
+        current = current->next;
+        count++;
+    }
+    return count;
+}
+
 int main() {
     printf("hello world\n");
     struct linkedlist l = {};
@@ -65,6 +76,7 @@ int main() {
     insert(&l, 3);
     insert(&l, 4);
     insert(&l, 5);
+    insert(&l, 2);
     printf("----------------------------\n");
 
     struct node *current = l.first;
@@ -78,8 +90,11 @@ int main() {
 
     struct node *target = get(&l, 1);
     if (!target) {
-        printf("target is NULL");
+        printf("target is NULL\n");
     } else {
-        printf("get node at index %d -> %d", 2, target->val);
+        printf("get node at index %d -> %d\n", 2, target->val);
     }
+
+    int s = size(&l);
+    printf("size of list is %d\n", s);
 }
